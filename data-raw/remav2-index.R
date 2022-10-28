@@ -38,3 +38,26 @@ for (i in seq_along(tifvars)) {
 
 remav2_mosaic_index <- index
 usethis::use_data(remav2_mosaic_index,  compress = "xz")
+
+
+
+## 32m
+layer <- grep("_32m$", layers$layer_names, value = TRUE)
+index <- tibble::as_tibble(vapour_read_fields(src, layer = layer))
+
+ex <- vapour_read_extent(src, layer)
+index[c("xmin", "xmax", "ymin", "ymax")] <- setNames(as.data.frame(do.call(rbind, ex)), c("xmin", "xmax", "ymin", "ymax"))
+index <- dplyr::select(index, dem_id, supertile, xmin, xmax, ymin, ymax, s3url, data_percent, num_components)
+index <- dplyr::rename(index, tile = supertile)
+##https://pgc-opendata-dems.s3.us-west-2.amazonaws.com/rema/mosaics/v2.0/2m/09_39/09_39_2_1_2m_v2.0_dem.tif
+
+tifvars <- c("browse", "dem", "count", "countmt", "mad", "maxdate", "mindate")
+for (i in seq_along(tifvars)) {
+  cogvar <- sprintf("cog_%s", tifvars[i])
+  index[[cogvar]] <- file.path("/vsicurl/https://pgc-opendata-dems.s3.us-west-2.amazonaws.com/rema/mosaics/v2.0/32m", index$tile,
+                               sprintf("%s_%s.tif", index$dem_id, tifvars[i]))
+
+}
+
+remav2_32m_mosaic_index = index
+usethis::use_data(remav2_32m_mosaic_index,  compress = "xz")
