@@ -20,5 +20,5 @@ NULL
 #' @docType data
 #' @name remav2_mosaic_index
 #' @seealso remav2_index
-#' @aliases REMA_Mosaic_Index_v2_2m remav2_index
+#' @aliases REMA_Mosaic_Index_v2_2m
 NULL

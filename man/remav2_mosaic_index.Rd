@@ -4,7 +4,6 @@
 \name{remav2_mosaic_index}
 \alias{remav2_mosaic_index}
 \alias{REMA_Mosaic_Index_v2_2m}
-\alias{remav2_index}
 \title{The REMA v2 Mosaic Index (2m)}
 \description{
 The Reference Elevation Model of Antarctica v2, this index is a set of tile identifiers and geographic extents
