@@ -50,9 +50,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">remav2_index</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">remav2_index</span><span class="op">(</span>resolution <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>resolution</dt>
+<dd><p>optional, may specify lower than native</p></dd>
+
+</dl></div>
     <div id="value">
     <h2>Value</h2>
     
@@ -63,7 +69,8 @@
     <h2>Details</h2>
     <p>The data frame <a href="remav2_mosaic_index.html">remav2_mosaic_index</a> has the following structure.</p>
 <p>The 'cog_*' urls are directly useable by <a href="https://gdal.org" class="external-link">GDAL</a>.</p>
-<table class="table table"><tr><td></td><td>dem_id</td><td>character</td><td>dem_id</td></tr><tr><td></td><td>tile</td><td>character</td><td>tile</td></tr><tr><td></td><td>xmin</td><td>numeric</td><td>xmin</td></tr><tr><td></td><td>xmax</td><td>numeric</td><td>xmax</td></tr><tr><td></td><td>ymin</td><td>numeric</td><td>ymin</td></tr><tr><td></td><td>ymax</td><td>numeric</td><td>ymax</td></tr><tr><td></td><td>s3url</td><td>character</td><td>s3url</td></tr><tr><td></td><td>data_percent</td><td>numeric</td><td>data_percent</td></tr><tr><td></td><td>num_components</td><td>numeric</td><td>num_components</td></tr><tr><td></td><td>cog_browse</td><td>character</td><td>cog url of browse image</td></tr><tr><td></td><td>cog_dem</td><td>character</td><td>cog url of dem</td></tr><tr><td></td><td>cog_count</td><td>character</td><td>cog url of count</td></tr><tr><td></td><td>cog_countmt</td><td>character</td><td>cog url of countmt</td></tr><tr><td></td><td>cog_mad</td><td>character</td><td>cog url of mad</td></tr><tr><td></td><td>cog_maxdate</td><td>character</td><td>cog url of maxdate</td></tr><tr><td></td><td>cog_mindate</td><td>character</td><td>cog url of mindate</td></tr></table></div>
+<table class="table table"><tr><td></td><td>dem_id</td><td>character</td><td>dem_id</td></tr><tr><td></td><td>tile</td><td>character</td><td>tile</td></tr><tr><td></td><td>xmin</td><td>numeric</td><td>xmin</td></tr><tr><td></td><td>xmax</td><td>numeric</td><td>xmax</td></tr><tr><td></td><td>ymin</td><td>numeric</td><td>ymin</td></tr><tr><td></td><td>ymax</td><td>numeric</td><td>ymax</td></tr><tr><td></td><td>s3url</td><td>character</td><td>s3url</td></tr><tr><td></td><td>data_percent</td><td>numeric</td><td>data_percent</td></tr><tr><td></td><td>num_components</td><td>numeric</td><td>num_components</td></tr><tr><td></td><td>cog_browse</td><td>character</td><td>cog url of browse image</td></tr><tr><td></td><td>cog_dem</td><td>character</td><td>cog url of dem</td></tr><tr><td></td><td>cog_count</td><td>character</td><td>cog url of count</td></tr><tr><td></td><td>cog_countmt</td><td>character</td><td>cog url of countmt</td></tr><tr><td></td><td>cog_mad</td><td>character</td><td>cog url of mad</td></tr><tr><td></td><td>cog_maxdate</td><td>character</td><td>cog url of maxdate</td></tr><tr><td></td><td>cog_mindate</td><td>character</td><td>cog url of mindate</td></tr></table><p>Currently the only resolutions available are 'native' (2m), or 32m.</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

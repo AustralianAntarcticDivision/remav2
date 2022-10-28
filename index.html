@@ -144,27 +144,71 @@
 <p>Well, it’s Casey station- we googled its longlat, and converted to ‘EPSG:3031’.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">reproj</span><span class="fu">::</span><span class="fu">reproj_xy</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">110.5285</span>, <span class="op">-</span><span class="fl">66.2821</span><span class="op">)</span>, <span class="st">"EPSG:3031"</span>, source <span class="op">=</span> <span class="st">"OGC:CRS84"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        x_        y_ </span></span>
-<span><span class="co">#&gt; 2447033.3 -916295.9</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in to_proj(source): not a proj-like string</span></span>
+<span><span class="co">#&gt; Warning in to_proj(target): not a proj-like string</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in to_proj(target): not a proj-like string</span></span>
+<span><span class="co">#&gt; Warning in to_proj(source): not a proj-like string</span></span>
+<span><span class="co">#&gt; [1] 2447033.3 -916295.9</span></span></code></pre></div>
 <p>With that in mind, let’s go for another location and get data for a broader region.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ld</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">112.826</span>, <span class="op">-</span><span class="fl">66.643</span><span class="op">)</span></span>
 <span><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu">reproj</span><span class="fu">::</span><span class="fu">reproj_xy</span><span class="op">(</span><span class="va">ld</span>, <span class="st">"EPSG:3031"</span>, source <span class="op">=</span> <span class="st">"OGC:CRS84"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in to_proj(source): not a proj-like string</span></span>
+<span><span class="co">#&gt; Warning in to_proj(target): not a proj-like string</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in to_proj(target): not a proj-like string</span></span>
+<span><span class="co">#&gt; Warning in to_proj(source): not a proj-like string</span></span>
 <span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e5</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">pt</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">## we can do *this*, but it takes too long</span></span>
 <span><span class="co">#dsm &lt;- imagery(source = index$cog_dem, extent = ex, dimension = c(1024, 1024), projection = "EPSG:3031")</span></span>
-<span><span class="va">tile1</span> <span class="op">&lt;-</span> <span class="va">index</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">xmin</span>, <span class="va">xmax</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">ex</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span></span>
+<span><span class="co">## because it's a big area let's use the 32m product</span></span>
+<span><span class="va">tile1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/remav2_index.html">remav2_index</a></span><span class="op">(</span><span class="st">"32m"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">filter</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">xmin</span>, <span class="va">xmax</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">ex</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
 <span>                       <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="va">xmin</span>, <span class="va">xmax</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">ex</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, </span>
 <span>                       <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmax</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">ex</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, </span>
 <span>                       <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">pmin</a></span><span class="op">(</span><span class="va">ymin</span>, <span class="va">ymax</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">ex</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> </span>
 <span>                       <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">tile1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 24 16</span></span>
+<span><span class="co">#&gt; [1]  9 16</span></span>
 <span><span class="va">dsm</span> <span class="op">&lt;-</span> <span class="fu">elevation</span><span class="op">(</span>source <span class="op">=</span> <span class="va">tile1</span><span class="op">$</span><span class="va">cog_dem</span>, extent <span class="op">=</span> <span class="va">ex</span>, dimension <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1024</span>, <span class="fl">1024</span><span class="op">)</span>, projection <span class="op">=</span> <span class="st">"EPSG:3031"</span><span class="op">)</span></span>
 <span><span class="fu">ximage</span><span class="op">(</span><span class="va">dsm</span>, extent <span class="op">=</span> <span class="va">ex</span>, asp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-law-dome-1.png" width="100%"></p>
 <p>Of course, like other massive raster data sets this one is tiled and has overviews only within each tile so we can’t efficiently treat it like a single data set, it’s better for larger regions to go for the prepared lower resolution sources (a WIP for us to combine these levels).</p>
+</div>
+<div class="section level2">
+<h2 id="casey-station">Casey station<a class="anchor" aria-label="anchor" href="#casey-station"></a>
+</h2>
+<p>This scene is data gotten at native resolution, we use the device size to set the image dimensions.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># an R graphics device worth of 2m REMA digital surface elevation around Casey station</span></span>
+<span><span class="co">## Casey station</span></span>
+<span><span class="va">pt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">2447000</span>, <span class="op">-</span><span class="fl">916300</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="va">tile0</span> <span class="op">&lt;-</span> <span class="va">index</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">xmin</span> <span class="op">&lt;=</span> <span class="va">pt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">xmax</span> <span class="op">&gt;=</span> <span class="va">pt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, </span>
+<span>                         <span class="va">ymin</span> <span class="op">&lt;=</span> <span class="va">pt</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="va">ymax</span> <span class="op">&gt;=</span> <span class="va">pt</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">whatarelief</span><span class="op">)</span></span>
+<span><span class="va">dm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.size.html" class="external-link">dev.size</a></span><span class="op">(</span><span class="st">"px"</span><span class="op">)</span></span>
+<span><span class="co">## it's 2m so 1x each half is exactly what we want :) haha</span></span>
+<span><span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">pt</span>, each <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">*</span>  <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">dm</span>, each <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">## using the warper but no resampling happens here as this is exactly aligned to native 2m</span></span>
+<span><span class="va">dsm</span> <span class="op">&lt;-</span> <span class="fu">elevation</span><span class="op">(</span>source <span class="op">=</span> <span class="va">tile0</span><span class="op">$</span><span class="va">cog_dem</span>, extent <span class="op">=</span> <span class="va">ex</span>, dimension <span class="op">=</span><span class="va">dm</span>, projection <span class="op">=</span> <span class="st">"EPSG:3031"</span><span class="op">)</span></span>
+<span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dsm0</span> <span class="op">&lt;-</span> <span class="va">dsm</span></span>
+<span><span class="va">dsm0</span><span class="op">[</span><span class="va">dsm0</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="co">## the raw 2m elevation data (lt 0 zapped)</span></span>
+<span><span class="fu">ximage</span><span class="fu">::</span><span class="fu">ximage</span><span class="op">(</span><span class="va">dsm0</span>, extent <span class="op">=</span> <span class="va">ex</span>, asp <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/gray.colors.html" class="external-link">grey.colors</a></span><span class="op">(</span><span class="fl">22</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-casey-1.png" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## compare to goog hybrid</span></span>
+<span><span class="va">im</span> <span class="op">&lt;-</span> <span class="fu">imagery</span><span class="op">(</span>extent <span class="op">=</span> <span class="va">ex</span>, dimension <span class="op">=</span> <span class="va">dm</span>, projection <span class="op">=</span> <span class="st">"EPSG:3031"</span>, </span>
+<span>              source <span class="op">=</span> <span class="fu">whatarelief</span><span class="fu">:::</span><span class="va">.imagery_sources</span><span class="op">[</span><span class="st">"wms_googlehybrid_tms"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu">ximage</span><span class="fu">::</span><span class="fu">ximage</span><span class="op">(</span><span class="va">im</span>, extent <span class="op">=</span> <span class="va">ex</span><span class="op">)</span></span>
+<span><span class="fu">ximage</span><span class="fu">::</span><span class="fu">xcontour</span><span class="op">(</span><span class="va">dsm</span>, extent <span class="op">=</span> <span class="va">ex</span>, add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-casey-2.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="wip">WIP<a class="anchor" aria-label="anchor" href="#wip"></a>
