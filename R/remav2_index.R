@@ -27,13 +27,17 @@ utils::globalVariables("remav2_mosaic_index")
 #'  \tab cog_mindate   \tab character \tab cog url of mindate\cr
 #' }
 #'
+#' Currently the only resolutions available are 'native' (2m), or 32m.
 #'
+#' @param resolution optional, may specify lower than native
 #'
 #' @return data frame with mosaic index details
 #' @export
 #'
 #' @examples
 #' remav2_index()
-remav2_index <- function() {
-  remav2_mosaic_index
+remav2_index <- function(resolution = NA) {
+ if (resolution == "2m" || is.na(resolution)) return(remav2_mosaic_index)
+  if (resolution == "32m") return(remav2_32m_mosaic_index)
+  stop(sprintf("no such resolution: %s", resolution))
 }

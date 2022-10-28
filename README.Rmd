@@ -112,7 +112,9 @@ pt <- reproj::reproj_xy(ld, "EPSG:3031", source = "OGC:CRS84")
 ex <- c(-1, 1, -1, 1) * 1e5 + rep(pt, each = 2)
 ## we can do *this*, but it takes too long
 #dsm <- imagery(source = index$cog_dem, extent = ex, dimension = c(1024, 1024), projection = "EPSG:3031")
-tile1 <- index |> dplyr::filter(pmax(xmin, xmax) > ex[1], 
+
+## because it's a big area let's use the 32m product
+tile1 <- remav2_index("32m") |> dplyr::filter(pmax(xmin, xmax) > ex[1], 
                        pmin(xmin, xmax) < ex[2], 
                        pmax(ymin, ymax) > ex[3], 
                        pmin(ymin, ymax) < ex[4] 
@@ -125,6 +127,39 @@ ximage(dsm, extent = ex, asp = 1)
 ```
 
 Of course, like other massive raster data sets this one is tiled and has overviews only within each tile so we can't efficiently treat it like a single data set, it's better for larger regions to go for the prepared lower resolution sources (a WIP for us to combine these levels). 
+
+
+## Casey station
+
+This scene is data gotten at native resolution, we use the device size to set the image dimensions. 
+
+```{r casey}
+# an R graphics device worth of 2m REMA digital surface elevation around Casey station
+## Casey station
+pt <- cbind(2447000, -916300)
+library(dplyr)
+tile0 <- index |> filter(xmin <= pt[1], xmax >= pt[1], 
+                         ymin <= pt[2], ymax >= pt[2])
+library(whatarelief)
+dm <- dev.size("px")
+## it's 2m so 1x each half is exactly what we want :) haha
+ex <- rep(pt, each = 2L) + c(-1, 1, -1, 1) *  rep(dm, each = 2L) 
+
+## using the warper but no resampling happens here as this is exactly aligned to native 2m
+dsm <- elevation(source = tile0$cog_dem, extent = ex, dimension =dm, projection = "EPSG:3031")
+op <- par(mar = rep(0, 4L))
+dsm0 <- dsm
+dsm0[dsm0 < 0] <- NA
+## the raw 2m elevation data (lt 0 zapped)
+ximage::ximage(dsm0, extent = ex, asp = 1, col = grey.colors(22))
+
+## compare to goog hybrid
+im <- imagery(extent = ex, dimension = dm, projection = "EPSG:3031", 
+              source = whatarelief:::.imagery_sources["wms_googlehybrid_tms"])
+ximage::ximage(im, extent = ex)
+ximage::xcontour(dsm, extent = ex, add = T)
+
+```
 
 ## WIP
 

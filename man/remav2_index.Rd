@@ -4,7 +4,10 @@
 \alias{remav2_index}
 \title{REMA v2 Mosaic Index}
 \usage{
-remav2_index()
+remav2_index(resolution = NA)
+}
+\arguments{
+\item{resolution}{optional, may specify lower than native}
 }
 \value{
 data frame with mosaic index details
@@ -35,6 +38,8 @@ The 'cog_*' urls are directly useable by \href{https://gdal.org}{GDAL}.
 \tab cog_maxdate   \tab character \tab cog url of maxdate\cr
 \tab cog_mindate   \tab character \tab cog url of mindate\cr
 }
+
+Currently the only resolutions available are 'native' (2m), or 32m.
 }
 \examples{
 remav2_index()
