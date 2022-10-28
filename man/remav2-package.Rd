@@ -4,12 +4,27 @@
 \name{remav2-package}
 \alias{remav2}
 \alias{remav2-package}
-\title{remav2: What the Package Does (One Line, Title Case)}
+\title{remav2: The REMA (Reference Elevation Model of Antarctica, v2) Mosaic Index}
 \description{
-What the package does (one paragraph).
+The mosaic index of The Reference Elevation Model of Antarctica (REMA) which is a high resolution, time-stamped Digital Surface Model (DSM) of Antarctica at 2-meter spatial resolution.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/AustralianAntarcticDivision/remav2}
+  \item \url{https://www.pgc.umn.edu/data/rema/}
+  \item Report bugs at \url{https://github.com/AustralianAntarcticDivision/remav2/issues}
+}
+
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Michael Sumner \email{michael.sumner@awe.gov.au} (\href{https://orcid.org/0000-0002-2471-7511}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Ben Raymond [contributor]
+  \item Integrated Digital East Antarctica, Australian AntarcticDivision [copyright holder]
+}
 
 }
 \keyword{internal}

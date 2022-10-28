@@ -1,0 +1,13 @@
+citHeader("To cite remav2 in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "The Reference Elevation Model of Antarctica – Mosaics, Version 2",
+  author   = "Howat, Ian; Porter, Claire; Noh, Myoung-Jon; Husby, Erik; Khuvis, Samuel; Danish, Evan; Tomko, Karen; Gardiner, Judith; Negrete, Adelaide; Yadav, Bidhyananda; Klassen, James; Kelleher, Cole; Cloutier, Michael; Bakker, Jesse; Enos, Jeremy; Arnold, Galen; Bauer, Greg; Morin, Pau",
+  journal  = "Harvard Dataverse",
+  year     = "2022" ,
+  volume   = "V1",
+
+  textVersion = paste("Howat, Ian, et al., 2022, “The Reference Elevation Model of Antarctica – Mosaics, Version 2”, https://doi.org/10.7910/DVN/EBW8UC, Harvard Dataverse, V1, [Date Accessed]."
+  )
+)
