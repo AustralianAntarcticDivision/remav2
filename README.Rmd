@@ -46,6 +46,13 @@ library(dplyr)
 
 We can visualize the coverage of the tiles with their extents. 
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 9, fig.height = 9
+)
+```
+
+
 ```{r extent}
 xlim <- range(unlist(index[c("xmin", "xmax")]))
 ylim <- range(unlist(index[c("ymin", "ymax")]))
@@ -53,9 +60,16 @@ plot(NA, xlim = xlim, ylim = ylim, xlab = "x", ylab = "x", asp = 1)
 rect(index$xmin, index$ymin, index$xmax, index$ymax)
 ```
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 7, fig.height = 7
+)
+```
+
 REMA v2 is an intensely detailed product, each of these tiles represents a raster grid with dimensions 25100x25100, with resolution of 2m. 
 
 We can interrogate a specific place by finding the tile of interest. 
+
 
 ```{r tile}
 ## Casey station
@@ -89,6 +103,9 @@ reproj::reproj_xy(cbind(110.5285, -66.2821), "EPSG:3031", source = "OGC:CRS84")
 
 With that in mind, let's go for another location and get data for a broader region. 
 
+
+
+
 ```{r law-dome}
 ld <-   cbind(112.826, -66.643)
 pt <- reproj::reproj_xy(ld, "EPSG:3031", source = "OGC:CRS84")
@@ -103,7 +120,6 @@ tile1 <- index |> dplyr::filter(pmax(xmin, xmax) > ex[1],
 
 dim(tile1)
 dsm <- elevation(source = tile1$cog_dem, extent = ex, dimension = c(1024, 1024), projection = "EPSG:3031")
-
 ximage(dsm, extent = ex, asp = 1)
 
 ```
@@ -114,8 +130,8 @@ Of course, like other massive raster data sets this one is tiled and has overvie
 
 TODO
 
--[ ] index the other resolutions
--[ ] integrate with a spatial helper package
+- [ ] index the other resolutions
+- [ ] integrate with a spatial helper package
 
 ## Code of Conduct
   

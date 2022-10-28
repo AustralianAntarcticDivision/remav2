@@ -134,7 +134,6 @@ tile1 <- index |> dplyr::filter(pmax(xmin, xmax) > ex[1],
 dim(tile1)
 #> [1] 24 16
 dsm <- elevation(source = tile1$cog_dem, extent = ex, dimension = c(1024, 1024), projection = "EPSG:3031")
-
 ximage(dsm, extent = ex, asp = 1)
 ```
 
@@ -149,8 +148,8 @@ lower resolution sources (a WIP for us to combine these levels).
 
 TODO
 
--\[ \] index the other resolutions -\[ \] integrate with a spatial
-helper package
+-   [ ] index the other resolutions
+-   [ ] integrate with a spatial helper package
 
 ## Code of Conduct
 
