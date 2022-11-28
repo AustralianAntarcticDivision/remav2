@@ -60,4 +60,17 @@ for (i in seq_along(tifvars)) {
 }
 
 remav2_32m_mosaic_index = index
+infos <- readRDS("data-raw/remav2_32m_mosaic_infos.rds")
+ex <- do.call(rbind, lapply(infos, \(.x) .x$extent))
+dm <- do.call(rbind, lapply(infos, \(.x) .x$dimension))
+
+remav2_32m_mosaic_index$xmin <- ex[,1]
+remav2_32m_mosaic_index$xmax <- ex[,2]
+remav2_32m_mosaic_index$ymin <- ex[,3]
+remav2_32m_mosaic_index$ymax <- ex[,4]
+remav2_32m_mosaic_index$ncol <- dm[,1]
+remav2_32m_mosaic_index$nrow <- dm[,2]
+
+
+
 usethis::use_data(remav2_32m_mosaic_index,  compress = "xz")
